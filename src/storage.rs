@@ -18,7 +18,25 @@ fn base_dir(var: &str, fallback: &str) -> Option<PathBuf> {
     if let Some(dir) = std::env::var_os(var).filter(|d| !d.is_empty()) {
         return Some(PathBuf::from(dir).join(APP_DIR));
     }
-    std::env::var_os("HOME").map(|home| PathBuf::from(home).join(fallback).join(APP_DIR))
+    if let Some(home) = std::env::var_os("HOME").filter(|d| !d.is_empty()) {
+        return Some(PathBuf::from(home).join(fallback).join(APP_DIR));
+    }
+    windows_dir(var)
+}
+
+/// Windows has no `HOME` by default: settings go under `%APPDATA%` and the
+/// scores and saved game under `%LOCALAPPDATA%`.
+#[cfg(all(windows, not(test)))]
+fn windows_dir(var: &str) -> Option<PathBuf> {
+    let known = if var == "XDG_CONFIG_HOME" { "APPDATA" } else { "LOCALAPPDATA" };
+    std::env::var_os(known)
+        .filter(|d| !d.is_empty())
+        .map(|dir| PathBuf::from(dir).join(APP_DIR))
+}
+
+#[cfg(all(not(windows), not(test)))]
+fn windows_dir(_var: &str) -> Option<PathBuf> {
+    None
 }
 
 /// Tests never touch the real config: each test thread gets its own empty directory.
