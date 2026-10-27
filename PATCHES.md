@@ -23,3 +23,9 @@ offering upstream.
 - `asciiverse/nfpm.yaml`: the system packages.
 - `asciiverse/record-preview.py`: records the catalog preview (a Turtle
   game played with the mouse, nine pairs found with Hint).
+
+## Ours
+
+- **How to play it, at the top of README.md.** A short note on installing and
+  starting it with av, or from a release archive; the original text follows
+  unchanged.

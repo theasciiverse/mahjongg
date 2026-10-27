@@ -1,3 +1,16 @@
+> **Play it with Asciiverse.** With [av](https://asciiverse.sh), the Asciiverse
+> client:
+>
+> ```
+> av install mahjongg
+> av play mahjongg
+> ```
+>
+> Or download the archive for your system from this repository's Releases,
+> unpack it and run `./mahjongg` (`mahjongg.exe` on Windows).
+>
+> The original README follows.
+
 # Mahjongg (TUI)
 
 A terminal clone of [GNOME Mahjongg](https://gitlab.gnome.org/GNOME/gnome-mahjongg),
